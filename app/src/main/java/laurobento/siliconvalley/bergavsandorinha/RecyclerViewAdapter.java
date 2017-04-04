@@ -13,11 +13,13 @@ import laurobento.siliconvalley.bergavsandorinha.model.ItemMercado;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    private final OnItemClickListener listener;
     private List<ItemMercado> itemList;
     private Context context;
 
-    public RecyclerViewAdapter(List<ItemMercado> items) {
-        itemList = items;
+    public RecyclerViewAdapter(List<ItemMercado> items, OnItemClickListener listener) {
+        this.itemList = items;
+        this.listener = listener;
     }
 
     @Override
@@ -32,9 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         ItemMercado item = getItem(position);
         if (item != null){
-            holder.nomeItem.setText(item.getNome());
-            holder.descricaoItem.setText(item.getDescricao());
-            holder.precoItem.setText(item.getPreco());
+            holder.bind(item, listener);
         }
     }
 
@@ -59,5 +59,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             descricaoItem = (TextView) itemView.findViewById(R.id.tvDescicaoItem);
             precoItem = (TextView) itemView.findViewById(R.id.tvPrecoItem);
         }
+
+        public void bind(final ItemMercado item, final OnItemClickListener listener) {
+            nomeItem.setText(item.getNome());
+            descricaoItem.setText(item.getDescricao());
+            precoItem.setText(item.getPreco());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(ItemMercado item);
     }
 }

@@ -1,51 +1,23 @@
 package laurobento.siliconvalley.bergavsandorinha;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmList;
-import io.realm.RealmQuery;
 import laurobento.siliconvalley.bergavsandorinha.model.ItemMercado;
 import laurobento.siliconvalley.bergavsandorinha.model.Mercado;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 public class CadastraItemActivity extends AppCompatActivity  {
 
     private Realm realm;
+    private String nomeItem;
 
     private EditText mNomeItem;
     private EditText mDescricaoItem;
@@ -63,6 +35,8 @@ public class CadastraItemActivity extends AppCompatActivity  {
         mNomeItem = (EditText) findViewById(R.id.nomeItem);
         mDescricaoItem = (EditText) findViewById(R.id.descricaoItem);
         mPrecoItem = (EditText) findViewById(R.id.precoItem);
+
+        carregaDados();
 
         Button mEmailSignInButton = (Button) findViewById(R.id.cadastrar);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -86,7 +60,6 @@ public class CadastraItemActivity extends AppCompatActivity  {
                     mercado.setItems(items);
 
                     realm.copyToRealm(mercado);
-
                     realm.commitTransaction();
                 }else{
                     realm.beginTransaction();
@@ -101,13 +74,22 @@ public class CadastraItemActivity extends AppCompatActivity  {
                     realm.commitTransaction();
                 }
 
-                Log.e("ENTIDADE", "Mercado" + mercado.toString());
-
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
+    }
+
+    private void carregaDados(){
+        nomeItem = getIntent().getStringExtra("ITEM_NOME");
+        if(nomeItem != null){
+            ItemMercado item = realm.where(ItemMercado.class).equalTo("nome", nomeItem, Case.INSENSITIVE).findFirst();
+
+            mNomeItem.setText(item.getNome());
+            mDescricaoItem.setText(item.getDescricao());
+            mPrecoItem.setText(item.getPreco());
+        }
     }
 
 }

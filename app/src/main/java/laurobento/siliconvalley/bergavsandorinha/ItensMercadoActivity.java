@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,14 @@ public class ItensMercadoActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         List<ItemMercado> list = createList();
-        listAdapter = new RecyclerViewAdapter(list);
+        listAdapter = new RecyclerViewAdapter(list, new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ItemMercado item) {
+                Intent intent = new Intent(getApplicationContext(), CadastraItemActivity.class);
+                intent.putExtra("ITEM_NOME", item.getNome());
+                startActivity(intent);
+            }
+        });
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
