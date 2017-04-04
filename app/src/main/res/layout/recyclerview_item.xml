@@ -17,39 +17,25 @@
         android:layout_margin="16dp">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text0"
+            android:id="@+id/tvNomeItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Title"
-            android:text="Título"
             android:layout_marginLeft="16dp"
             android:layout_alignParentTop="true"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text1"
+            android:id="@+id/tvDescicaoItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_below="@id/text0"
-            android:text="Subtítulo"
             android:layout_marginLeft="16dp"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text2"
+            android:id="@+id/tvPrecoItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_below="@id/text1"
-            android:text="Texto 1"
-            android:layout_marginLeft="16dp"/>
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Caption"
-            android:layout_below="@id/text2"
-            android:text="Texto 2"
             android:layout_marginLeft="16dp"/>
 
     </LinearLayout>

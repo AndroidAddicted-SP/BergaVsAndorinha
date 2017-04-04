@@ -14,26 +14,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.realm.Case;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import laurobento.siliconvalley.bergavsandorinha.model.ItemMercado;
+import laurobento.siliconvalley.bergavsandorinha.model.Mercado;
 
 public class ItensMercadoActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private RecyclerViewAdapter listAdapter;
+    private Realm realm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itens_mercado);
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        //toolbar.setTitle(getResources().getString(R.string.mercado_andorinha));
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<ItemMercado> list = createList();
         listAdapter = new RecyclerViewAdapter(list);
@@ -47,14 +46,17 @@ public class ItensMercadoActivity extends AppCompatActivity {
     }
 
     private List<ItemMercado> createList() {
+        List<ItemMercado> items = new ArrayList<>();
+        realm = Realm.getDefaultInstance();
+        Mercado mercado = realm.where(Mercado.class).equalTo("nome", "Andorinha", Case.INSENSITIVE).findFirst();
 
-        ItemMercado[] items = new ItemMercado[10];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = new ItemMercado("Título", "SubTítulo", i, i + 1);
+        if(mercado != null) {
+            for (ItemMercado item : mercado.getItems()) {
+                items.add(item);
+            }
         }
 
-        List<ItemMercado> list = new ArrayList<>(Arrays.asList(items));
-        return list;
+        return items;
     }
 
     @Override

@@ -1,58 +1,43 @@
 package laurobento.siliconvalley.bergavsandorinha.model;
 
-public class ItemMercado {
+import io.realm.RealmObject;
 
-    private String title;
-    private String subtitle;
-    private int n1;
-    private int n2;
+public class ItemMercado extends RealmObject {
 
-    public ItemMercado(String title, String subtitle, int n1, int n2) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.n1 = n1;
-        this.n2 = n2;
+    private String nome;
+    private String descricao;
+    private String preco;
+
+    public String getNome() {
+        return nome;
     }
 
-    public String getTitle() {
-        return title;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public String getPreco() {
+        return preco;
     }
 
-    public int getN1() {
-        return n1;
-    }
-
-    public void setN1(int n1) {
-        this.n1 = n1;
-    }
-
-    public int getN2() {
-        return n2;
-    }
-
-    public void setN2(int n2) {
-        this.n2 = n2;
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 
     @Override
     public String toString() {
         return "ItemMercado{" +
-                "title='" + title + '\'' +
-                ", subtitle='" + subtitle + '\'' +
-                ", n1=" + n1 +
-                ", n2=" + n2 +
+                "nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", preco='" + preco + '\'' +
                 '}';
     }
 }

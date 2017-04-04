@@ -32,10 +32,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         ItemMercado item = getItem(position);
         if (item != null){
-            holder.title.setText(item.getTitle());
-            holder.subTitle.setText(item.getSubtitle());
-            holder.n1.setText(String.valueOf(item.getN1()));
-            holder.n2.setText(String.valueOf(item.getN2()));
+            holder.nomeItem.setText(item.getNome());
+            holder.descricaoItem.setText(item.getDescricao());
+            holder.precoItem.setText(item.getPreco());
         }
     }
 
@@ -50,17 +49,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView title;
-        private TextView subTitle;
-        private TextView n1;
-        private TextView n2;
+        private TextView nomeItem;
+        private TextView descricaoItem;
+        private TextView precoItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.text0);
-            subTitle = (TextView) itemView.findViewById(R.id.text1);
-            n1 = (TextView) itemView.findViewById(R.id.text2);
-            n2 = (TextView) itemView.findViewById(R.id.text3);
+            nomeItem = (TextView) itemView.findViewById(R.id.tvNomeItem);
+            descricaoItem = (TextView) itemView.findViewById(R.id.tvDescicaoItem);
+            precoItem = (TextView) itemView.findViewById(R.id.tvPrecoItem);
         }
     }
 }
