@@ -10,6 +10,8 @@ public class Mercado extends RealmObject{
     private String nome;
     private String descricao;
 
+    public Mercado() {}
+
     public Mercado(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
